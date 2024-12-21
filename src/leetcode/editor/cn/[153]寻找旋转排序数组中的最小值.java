@@ -68,7 +68,6 @@ class Solution {
             }
         }
         return nums[left];
-
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
