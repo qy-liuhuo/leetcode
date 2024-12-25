@@ -38,21 +38,57 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
+//    public boolean searchMatrix(int[][] matrix, int target) {
+//        int m = matrix.length;
+//        int n = matrix[0].length;
+//        int total = m * n;
+//        int left = 0;
+//        int right = total - 1;
+//        while (left <= right){
+//            int mid = (right - left) / 2 + left;
+//            int temp = matrix[mid / n][mid % n];
+//            if (temp == target)
+//                return true;
+//            else if (temp > target){
+//                right = mid - 1;
+//            }
+//            else {
+//                left = mid + 1;
+//            }
+//        }
+//        return false;
+//    }
+
+    // 二次二分法
     public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length;
         int n = matrix[0].length;
-        int total = m * n;
         int left = 0;
-        int right = total - 1;
+        int right = m - 1;
         while (left <= right){
             int mid = (right - left) / 2 + left;
-            int temp = matrix[mid / n][mid % n];
+            int temp = matrix[mid][0];
             if (temp == target)
                 return true;
             else if (temp > target){
                 right = mid - 1;
+            }else {
+                left = mid + 1;
             }
-            else {
+        }
+        if (right == -1)
+            return false;
+        int row = right;
+        left = 0;
+        right = n - 1;
+        while (left <= right){
+            int mid = (right - left) / 2 + left;
+            int temp = matrix[row][mid];
+            if (temp == target)
+                return true;
+            else if (temp > target){
+                right = mid - 1;
+            }else {
                 left = mid + 1;
             }
         }
