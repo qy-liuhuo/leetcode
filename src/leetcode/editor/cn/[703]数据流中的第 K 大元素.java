@@ -1,0 +1,85 @@
+//<p>设计一个找到数据流中第 <code>k</code> 大元素的类（class）。注意是排序后的第 <code>k</code> 大元素，不是第 <code>k</code> 个不同的元素。</p>
+//
+//<p>请实现 <code>KthLargest</code>&nbsp;类：</p>
+//
+//<ul> 
+// <li><code>KthLargest(int k, int[] nums)</code> 使用整数 <code>k</code> 和整数流 <code>nums</code> 初始化对象。</li> 
+// <li><code>int add(int val)</code> 将 <code>val</code> 插入数据流 <code>nums</code> 后，返回当前数据流中第 <code>k</code> 大的元素。</li> 
+//</ul>
+//
+//<p>&nbsp;</p>
+//
+//<p><strong class="example">示例 1：</strong></p>
+//
+//<div class="example-block"> 
+// <p><strong>输入：</strong><br /> <span class="example-io">["KthLargest", "add", "add", "add", "add", "add"]<br /> [[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]</span></p> 
+//</div>
+//
+//<p><strong>输出：</strong><span class="example-io">[null, 4, 5, 5, 8, 8]</span></p>
+//
+//<p><strong>解释：</strong></p>
+//
+//<p>KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);<br /> kthLargest.add(3); // 返回 4<br /> kthLargest.add(5); // 返回 5<br /> kthLargest.add(10); // 返回 5<br /> kthLargest.add(9); // 返回 8<br /> kthLargest.add(4); // 返回 8</p>
+//
+//<p>&nbsp;</p>
+//
+//<p><strong class="example">示例&nbsp;2：</strong></p>
+//
+//<div class="example-block"> 
+// <p><strong>输入：</strong><br /> <span class="example-io">["KthLargest", "add", "add", "add", "add"]<br /> [[4, [7, 7, 7, 7, 8, 3]], [2], [10], [9], [9]]</span></p> 
+//</div>
+//
+//<p><span class="example-io"><b>输出：</b>[null, 7, 7, 7, 8]</span></p>
+//
+//<p><strong>解释：</strong></p> KthLargest kthLargest = new KthLargest(4, [7, 7, 7, 7, 8, 3]);
+//<br /> kthLargest.add(2); // 返回 7
+//<br /> kthLargest.add(10); // 返回 7
+//<br /> kthLargest.add(9); // 返回 7
+//<br /> kthLargest.add(9); // 返回 8
+//
+//<p>&nbsp;</p> 
+//<strong>提示：</strong>
+//
+//<ul> 
+// <li><code>0 &lt;= nums.length &lt;= 10<sup>4</sup></code></li> 
+// <li><code>1 &lt;= k &lt;= nums.length + 1</code></li> 
+// <li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li> 
+// <li><code>-10<sup>4</sup> &lt;= val &lt;= 10<sup>4</sup></code></li> 
+// <li>最多调用 <code>add</code> 方法 <code>10<sup>4</sup></code> 次</li> 
+//</ul>
+//
+//<div><div>Related Topics</div><div><li>树</li><li>设计</li><li>二叉搜索树</li><li>二叉树</li><li>数据流</li><li>堆（优先队列）</li></div></div><br><div><li>👍 490</li><li>👎 0</li></div>
+
+//leetcode submit region begin(Prohibit modification and deletion)
+class KthLargest {
+
+    Queue<Integer> queue;
+
+    int k;
+
+    public KthLargest(int k, int[] nums) {
+        queue = new PriorityQueue<>();
+        this.k = k;
+        for (int num : nums){
+            queue.offer(num);
+            if (queue.size() > k){
+                queue.poll();
+            }
+        }
+    }
+    
+    public int add(int val) {
+        queue.offer(val);
+        if (queue.size() > k){
+            queue.poll();
+        }
+        return queue.peek();
+    }
+}
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest obj = new KthLargest(k, nums);
+ * int param_1 = obj.add(val);
+ */
+//leetcode submit region end(Prohibit modification and deletion)
